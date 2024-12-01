@@ -1797,17 +1797,17 @@ input:checked + .toggle:before {
 /* Placeholder InputText color*/
 #userproxy {
 	color: var(--textColorDark-blue);
-	background-color: var(--whitishColor-blue);
+	/* background-color: var(--whitishColor-blue); */
 }
 
 #userLoc {
 	color: var(--textColorDark-blue);
-	background-color: var(--whitishColor-blue);
+	/* background-color: var(--whitishColor-blue); */
 }
 
 #userAPI {
 	color: var(--textColorDark-blue);
-	background-color: var(--whitishColor-blue);
+	/* background-color: var(--whitishColor-blue); */
 }
 
 /* ---------------Menu-bar-css---------------- */
@@ -1990,6 +1990,8 @@ input:checked + .toggle:before {
 	justify-content: center; /* Center the buttons horizontally */
 	gap: var(--gap); /* Maintain consistent spacing */
 	margin-top: 122px; /* Add spacing below the theming section */
+	/* background-color: red; */
+	justify-content: space-between;
 }
 
 /* Styling for Upload/Clear Buttons with SVGs */
@@ -2009,9 +2011,6 @@ input:checked + .toggle:before {
 	transition: background-color 0.3s, border-color 0.3s;
 }
 
-.clearButton {
-	padding: 10px; /* Smaller padding for the delete icon */
-}
 
 /* Ensure consistent SVG sizing */
 .uploadButton svg,
@@ -2041,6 +2040,25 @@ input:checked + .toggle:before {
 	grid-column: span 2;
 	width: 82px;
 } */
+
+
+#colorPicker{
+	display: none;
+}
+.colorPickerLabel{
+	grid-column: span 3;
+    width: 100%;
+    background: var(--accentLightTint-blue);
+    height: 100%;
+    border-radius: 100px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    line-height: 35px;
+	cursor: pointer;
+}
+
 
 /* -----------end of theming stuff---------------- */
 

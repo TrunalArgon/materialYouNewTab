@@ -1129,6 +1129,73 @@ const applySelectedTheme = (colorValue) => {
         faviconLink.href = iconPaths[colorValue];
     }
 };
+// -----------------------
+// Function to darken the hex color directly
+function darkenHexColor(hex, factor = 0.6) {
+    // Remove the hash (#) if present
+    hex = hex.replace('#', '');
+
+    // Convert hex to RGB
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+
+    // Darken the color
+    r = Math.floor(r * (1 - factor));
+    g = Math.floor(g * (1 - factor));
+    b = Math.floor(b * (1 - factor));
+
+    // Convert RGB back to hex
+    return `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1).toUpperCase()}`;
+}
+
+// Function to lighten the hex color and give it a subtle tint
+function lightenHexColor(hex, factor = 0.85) {
+    // Remove the hash (#) if present
+    hex = hex.replace('#', '');
+
+    // If the hex is shorthand (3 digits), expand it to 6 digits
+    if (hex.length === 3) {
+        hex = hex.split('').map(c => c + c).join('');
+    }
+
+    // Convert the hex color to RGB
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+
+    // Lighten the color by blending with white (255)
+    r = Math.floor(r + (255 - r) * factor);
+    g = Math.floor(g + (255 - g) * factor);
+    b = Math.floor(b + (255 - b) * factor);
+
+    // Return the lightened color as hex
+    return `#${(1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1).toUpperCase()}`;
+}
+
+
+// ------------------------
+const colorPicker = document.getElementById('colorPicker');
+colorPicker.addEventListener('input', function(event) {
+    const selectedColor = event.target.value;
+    localStorage.setItem(themeStorageKey, selectedColor);
+
+    // Darken the selected color and get it in hex format
+    const darkerColorHex = darkenHexColor(selectedColor);
+    const lighterColorHex = lightenHexColor(selectedColor, 0.85);
+    // console.log(darkerColorHex,lighterColorHex);
+
+    // Apply the selected color and its darkened version as the theme
+    document.documentElement.style.setProperty('--bg-color-blue', lighterColorHex);
+    document.documentElement.style.setProperty('--accentLightTint-blue', '#f3f3f3');
+    document.documentElement.style.setProperty('--darkerColor-blue', "#4a4a4a");
+    document.documentElement.style.setProperty('--darkColor-blue', selectedColor);
+    document.documentElement.style.setProperty('--textColorDark-blue', darkerColorHex);
+    document.documentElement.style.setProperty('--whitishColor-blue', '#ffffff');
+});
+
+
+// -------------------End of Color From color Picker--------------------
 
 radioButtons.forEach(radioButton => {
     radioButton.addEventListener('change', function () {
