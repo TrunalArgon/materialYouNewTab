@@ -1215,14 +1215,20 @@ function isNearWhite(hex, threshold = 240) {
 // ---- Color Picker || ColorPicker----
 
 const applyCustomTheme = (color) => {
-    const darkerColorHex = darkenHexColor(color);
-    const lighterColorHex = lightenHexColor(color, 0.85);
-    const lightTin = lightestColor(color, 0.95);
+    
+    adjustedColor = color;
+    if (isNearWhite(color)) {
+        adjustedColor = '#696969'; // Light gray if near white
+    }
+    const darkerColorHex = darkenHexColor(adjustedColor);
+    const lighterColorHex = lightenHexColor(adjustedColor, 0.85);
+    const lightTin = lightestColor(adjustedColor, 0.95);
+
     // resetDarkTheme();
     document.documentElement.style.setProperty('--bg-color-blue', lighterColorHex);
     document.documentElement.style.setProperty('--accentLightTint-blue', lightTin);
     document.documentElement.style.setProperty('--darkerColor-blue', darkerColorHex);
-    document.documentElement.style.setProperty('--darkColor-blue', color);
+    document.documentElement.style.setProperty('--darkColor-blue', adjustedColor);
     document.documentElement.style.setProperty('--textColorDark-blue', darkerColorHex);
     document.documentElement.style.setProperty('--whitishColor-blue', '#ffffff');
     document.getElementById("rangColor").style.borderColor = color;
